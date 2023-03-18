@@ -23,9 +23,7 @@ public class SearchTests extends TestBase {
     @Owner("Diana")
     @Tag("android")
     @DisplayName("Search article by name")
-    void testSearch() {
-        back();
-        Selenide.sleep(5000);
+    void searchByWordTest() {
         step("Skip language choose", () -> {
             $(xpath("//*[contains(@text,'SKIP')]")).click();
             $(id("org.wikipedia:id/search_container")).click();
@@ -34,21 +32,21 @@ public class SearchTests extends TestBase {
             $(accessibilityId("Search Wikipedia")).click();
             $(id("org.wikipedia.alpha:id/search_src_text")).sendKeys("Java");
         });
-        step("Verify that content is found", () ->
-                $$(id("org.wikipedia.alpha:id/page_list_item_title"))
-                        .shouldHave(sizeGreaterThan(0)));
-
-        step("Verify the title is 'Object-oriented programming language'", () ->
-                $(xpath(" //*[contains(@text,'Object-oriented programming language')]"))
-                        .shouldHave(exist));
+        step("Verify that content is found", () -> {
+            $$(id("org.wikipedia.alpha:id/page_list_item_title"))
+                    .shouldHave(sizeGreaterThan(0));
+        });
+        step("Verify the title is 'Object-oriented programming language'", () -> {
+            $(xpath(" //*[contains(@text,'Object-oriented programming language')]"))
+                    .shouldHave(exist);
+        });
     }
 
     @Test
     @Owner("Diana")
     @Tag("android")
     @DisplayName("Cancel search by word")
-    void testCancelSearch() {
-        open();
+    void cancelSearchTest() {
         step("Skip language choose", () -> {
             $(xpath("//*[contains(@text,'SKIP')]")).click();
         });
